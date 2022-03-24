@@ -11,7 +11,7 @@ namespace tpmodul5_1302204047
     {
         private int id;
         private string title;
-        private int playCount;
+        public int playCount;
 
         public SayaTubeVideo(string title)
         {
@@ -19,11 +19,23 @@ namespace tpmodul5_1302204047
             Random random = new Random();
             id = random.Next(0, 99999);
             playCount = 0;
+
+            Contract.Requires(title != null);
+            Contract.Requires(title.Length < 100);
         }
 
-        public void IncreasePlayCount(int PlayCount)
+        public void IncreasePlayCount(int Count)
         {
-            playCount++;
+            try
+            {
+                if (Count >= 10000000) throw new Exception("Input kelebihan");
+                playCount++;
+               
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public void PrintVideoDetails()
